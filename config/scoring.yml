@@ -1,0 +1,31 @@
+# Scoring rubric. Each component returns a value in [0, 1]; the final score
+# is a weighted sum (also in [0, 1]) that the pipeline sorts on.
+
+weights:
+  activity: 0.35    # how recently the repo was pushed
+  popularity: 0.25  # stars, log-scaled
+  language: 0.20    # match against `preferred_languages`
+  topic: 0.20       # match against `preferred_topics`
+
+# Activity decays linearly: 0 days old = 1.0, >= activity_horizon_days = 0.0
+activity_horizon_days: 30
+
+# Popularity is log10(stars) / popularity_log_cap, clipped to [0, 1].
+popularity_log_cap: 5   # ~100k stars saturates
+
+preferred_languages:
+  Python: 1.0
+  TypeScript: 0.9
+  Rust: 0.9
+  Go: 0.8
+  Svelte: 0.7
+
+preferred_topics:
+  ai: 1.0
+  llm: 1.0
+  developer-tools: 0.9
+  cli: 0.8
+  observability: 0.7
+
+# Maximum repos to include in the daily shortlist.
+shortlist_size: 5
