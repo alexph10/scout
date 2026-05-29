@@ -1,0 +1,156 @@
+{
+  "generated_at": "2026-05-29T14:02:05.403982+00:00",
+  "count": 5,
+  "repos": [
+    {
+      "full_name": "Significant-Gravitas/AutoGPT",
+      "html_url": "https://github.com/Significant-Gravitas/AutoGPT",
+      "description": "AutoGPT is the vision of accessible AI for everyone, to use and to build on. Our mission is to provide the tools, so that you can focus on what matters.",
+      "language": "Python",
+      "topics": [
+        "agentic-ai",
+        "agents",
+        "ai",
+        "artificial-intelligence",
+        "autonomous-agents",
+        "claude",
+        "gpt",
+        "llama-api",
+        "llm",
+        "openai",
+        "python"
+      ],
+      "stargazers_count": 184633,
+      "pushed_at": "2026-05-29T13:52:26Z",
+      "source": "trending-ai-this-week",
+      "score": {
+        "activity": 0.9997764645131173,
+        "popularity": 1.0,
+        "language": 1.0,
+        "topic": 1.0,
+        "total": 0.9999
+      }
+    },
+    {
+      "full_name": "NousResearch/hermes-agent",
+      "html_url": "https://github.com/NousResearch/hermes-agent",
+      "description": "The agent that grows with you",
+      "language": "Python",
+      "topics": [
+        "ai",
+        "ai-agent",
+        "ai-agents",
+        "anthropic",
+        "chatgpt",
+        "claude",
+        "claude-code",
+        "clawdbot",
+        "codex",
+        "hermes",
+        "hermes-agent",
+        "llm",
+        "moltbot",
+        "nous-research",
+        "openai",
+        "openclaw"
+      ],
+      "stargazers_count": 172431,
+      "pushed_at": "2026-05-29T13:55:25Z",
+      "source": "trending-ai-this-week",
+      "score": {
+        "activity": 0.9998455231550926,
+        "popularity": 1.0,
+        "language": 1.0,
+        "topic": 1.0,
+        "total": 0.9999
+      }
+    },
+    {
+      "full_name": "github/spec-kit",
+      "html_url": "https://github.com/github/spec-kit",
+      "description": "\ud83d\udcab Toolkit to help you get started with Spec-Driven Development",
+      "language": "Python",
+      "topics": [
+        "ai",
+        "copilot",
+        "development",
+        "engineering",
+        "prd",
+        "spec",
+        "spec-driven"
+      ],
+      "stargazers_count": 106970,
+      "pushed_at": "2026-05-29T13:54:23Z",
+      "source": "trending-ai-this-week",
+      "score": {
+        "activity": 0.9998216034020062,
+        "popularity": 1.0,
+        "language": 1.0,
+        "topic": 1.0,
+        "total": 0.9999
+      }
+    },
+    {
+      "full_name": "langchain-ai/langchain",
+      "html_url": "https://github.com/langchain-ai/langchain",
+      "description": "The agent engineering platform.",
+      "language": "Python",
+      "topics": [
+        "agents",
+        "ai",
+        "ai-agents",
+        "anthropic",
+        "chatgpt",
+        "deepagents",
+        "enterprise",
+        "framework",
+        "gemini",
+        "generative-ai",
+        "langchain",
+        "langgraph",
+        "llm",
+        "multiagent",
+        "open-source",
+        "openai",
+        "pydantic",
+        "python",
+        "rag",
+        "typescript"
+      ],
+      "stargazers_count": 137966,
+      "pushed_at": "2026-05-29T09:10:47Z",
+      "source": "trending-ai-this-week",
+      "score": {
+        "activity": 0.9932567885871914,
+        "popularity": 1.0,
+        "language": 1.0,
+        "topic": 1.0,
+        "total": 0.9976
+      }
+    },
+    {
+      "full_name": "Comfy-Org/ComfyUI",
+      "html_url": "https://github.com/Comfy-Org/ComfyUI",
+      "description": "The most powerful and modular diffusion model GUI, api and backend with a graph/nodes interface.",
+      "language": "Python",
+      "topics": [
+        "ai",
+        "comfy",
+        "comfyui",
+        "python",
+        "pytorch",
+        "stable-diffusion"
+      ],
+      "stargazers_count": 114882,
+      "pushed_at": "2026-05-29T07:06:01Z",
+      "source": "trending-ai-this-week",
+      "score": {
+        "activity": 0.9903686713032407,
+        "popularity": 1.0,
+        "language": 1.0,
+        "topic": 1.0,
+        "total": 0.9966
+      }
+    }
+  ]
+}
