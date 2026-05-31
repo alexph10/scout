@@ -1,4 +1,4 @@
-"""Thin wrapper around the GitHub REST API used by the pipeline."""
+"""Small GitHub REST client."""
 
 from __future__ import annotations
 
@@ -10,6 +10,7 @@ import requests
 
 API_ROOT = "https://api.github.com"
 USER_AGENT = "daily-github-shortlist/0.1"
+REQUEST_TIMEOUT = 15  # seconds
 
 
 class GitHubClient:
@@ -26,8 +27,6 @@ class GitHubClient:
         if self.token:
             self.session.headers["Authorization"] = f"Bearer {self.token}"
 
-    # --- Search -----------------------------------------------------------
-
     def search_repositories(
         self,
         q: str,
@@ -35,7 +34,6 @@ class GitHubClient:
         order: str = "desc",
         per_page: int = 30,
     ) -> list[dict[str, Any]]:
-        """Single-page repository search. See GitHub Search API docs."""
         resp = self._get(
             f"{API_ROOT}/search/repositories",
             params={"q": q, "sort": sort, "order": order, "per_page": per_page},
@@ -46,11 +44,10 @@ class GitHubClient:
         resp = self._get(f"{API_ROOT}/repos/{full_name}")
         return resp.json()
 
-    # --- Starring ---------------------------------------------------------
-
     def is_starred(self, full_name: str) -> bool:
-        # 204 = starred, 404 = not starred.
-        resp = self.session.get(f"{API_ROOT}/user/starred/{full_name}")
+        resp = self.session.get(
+            f"{API_ROOT}/user/starred/{full_name}", timeout=REQUEST_TIMEOUT
+        )
         if resp.status_code == 204:
             return True
         if resp.status_code == 404:
@@ -59,18 +56,18 @@ class GitHubClient:
         return False
 
     def star(self, full_name: str) -> None:
-        resp = self.session.put(f"{API_ROOT}/user/starred/{full_name}")
+        resp = self.session.put(
+            f"{API_ROOT}/user/starred/{full_name}", timeout=REQUEST_TIMEOUT
+        )
         resp.raise_for_status()
 
-    # --- Internals --------------------------------------------------------
-
     def _get(self, url: str, params: dict[str, Any] | None = None) -> requests.Response:
-        for attempt in range(3):
-            resp = self.session.get(url, params=params)
+        # Retry on rate limit.
+        for _ in range(3):
+            resp = self.session.get(url, params=params, timeout=REQUEST_TIMEOUT)
             if resp.status_code == 403 and "rate limit" in resp.text.lower():
                 reset = int(resp.headers.get("X-RateLimit-Reset", "0"))
-                sleep_for = max(1, reset - int(time.time()))
-                time.sleep(min(sleep_for, 60))
+                time.sleep(min(max(1, reset - int(time.time())), 60))
                 continue
             resp.raise_for_status()
             return resp

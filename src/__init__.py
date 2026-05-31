@@ -1,3 +1,9 @@
-"""daily-github-shortlist pipeline package."""
+"""Daily GitHub shortlist pipeline."""
 
-__version__ = "0.1.0"
+from .config import load_dotenv
+
+__version__ = "0.2.0"
+
+# Pick up GITHUB_TOKEN from ~/.scout/.env without requiring shell setup.
+# Real environment variables always win.
+load_dotenv()

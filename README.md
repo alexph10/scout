@@ -1,73 +1,39 @@
-# daily-github-shortlist
+# scout
 
-A GitHub repository discovery pipeline that scores projects by activity, stars,
-language, and topic match, then publishes a daily top 5 list.
+#### What it does
 
-## What it does
+Every time you run it, scout asks GitHub "what are the top 5 repos I should be looking at right now?" It runs a list of searches you configured (deep learning, generative AI, game engines, quant trading, whatever you care about), scores each repo by how recently it was pushed, how many stars it has, and how well its language and topics match your tastes, then prints the top 5 to your terminal.
 
-Each day the pipeline answers one question: **"What are the top 5 GitHub repos
-I should look at today?"**
+Every run is also saved to `~/.scout/reports/YYYY-MM-DD.md` so you can flip back to old picks. Run `scout approve` to walk the shortlist and star the ones you like with one keystroke each.
 
-It runs four stages:
+It's a daily 30-second habit. No web UI, no account, no LLM, no nonsense.
 
-1. **Collect** – query the GitHub Search API and any curated sources defined in
-   [`config/sources.yml`](config/sources.yml).
-2. **Score** – rank repos with a transparent formula combining recency,
-   popularity, language preference, and topic match.
-3. **Publish** – write a daily Markdown report to `reports/YYYY-MM-DD.md` and
-   the underlying data to `data/YYYY-MM-DD.json`.
-4. **Approve** – review the shortlist locally and optionally star approved
-   repos via the GitHub REST API. Nothing is starred automatically.
-
-## Project layout
+#### Install
 
 ```
-daily-github-shortlist/
-├── .github/workflows/daily.yml   # scheduled pipeline (cron, UTC)
-├── config/
-│   ├── sources.yml               # search queries + curated repos
-│   └── scoring.yml               # weights and language/topic preferences
-├── src/
-│   ├── collect.py                # GitHub Search API client
-│   ├── score.py                  # scoring rubric
-│   ├── publish.py                # markdown + json report writer
-│   ├── approve.py                # interactive starring CLI
-│   ├── github_client.py          # thin requests wrapper
-│   ├── config.py                 # config loader
-│   └── pipeline.py               # orchestrates collect → score → publish
-├── data/                         # daily JSON snapshots
-├── reports/                      # daily markdown shortlists
-├── tests/
-└── requirements.txt
+pipx install git+https://github.com/alexph10/github-curate
 ```
 
-## Quick start
+`scout` is now on your PATH.
 
-```bash
-python -m venv .venv
-.venv\Scripts\activate            # Windows
-pip install -r requirements.txt
+#### Use
 
-# Run the daily pipeline
-$env:GITHUB_TOKEN = "ghp_..."
-python -m src.pipeline
-
-# Review and star approved repos interactively
-python -m src.approve reports/2026-05-28.md
+```
+scout              build today's shortlist and print it
+scout show         reprint the latest report
+scout list         list every report you've ever generated
+scout approve      walk today's picks and star the good ones
+scout --help       everything else
 ```
 
-## Configuration
+The first run creates `~/.scout/` and drops two editable config files in it: `sources.yml` (what to search for) and `scoring.yml` (how to weight results). Edit them however you like.
 
-Edit [`config/sources.yml`](config/sources.yml) to add GitHub search queries or
-pin curated repos. Edit [`config/scoring.yml`](config/scoring.yml) to tune the
-scoring weights, preferred languages, and topic boosts.
+To star repos via `scout approve`, put a GitHub token in `~/.scout/.env`:
 
-## Scheduling
+```
+GITHUB_TOKEN=ghp_yourtoken
+```
 
-The workflow in [`.github/workflows/daily.yml`](.github/workflows/daily.yml)
-runs every day at 13:00 UTC, generates the report, and commits it back to the
-repo. Starring stays manual — the workflow never calls the star endpoint.
+The token needs the `public_repo` scope. Search-only runs work fine without a token, you just get a lower rate limit.
 
-## License
-
-MIT
+Point scout at a different working dir with `SCOUT_HOME=/some/path scout`.

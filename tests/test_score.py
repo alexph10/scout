@@ -30,10 +30,10 @@ def _repo(**overrides):
 
 def test_score_fresh_python_ai_repo_scores_high():
     breakdown = score_repo(_repo(), SCORING, now=NOW)
-    assert breakdown.activity > 0.9
-    assert breakdown.language == 1.0
-    assert breakdown.topic == 1.0
-    assert 0.0 < breakdown.total <= 1.0
+    assert breakdown["activity"] > 0.9
+    assert breakdown["language"] == 1.0
+    assert breakdown["topic"] == 1.0
+    assert 0.0 < breakdown["total"] <= 1.0
 
 
 def test_old_repo_has_zero_activity():
@@ -42,7 +42,7 @@ def test_old_repo_has_zero_activity():
         SCORING,
         now=NOW,
     )
-    assert breakdown.activity == 0.0
+    assert breakdown["activity"] == 0.0
 
 
 def test_rank_sorts_descending_by_total():
@@ -61,5 +61,5 @@ def test_unknown_language_and_topic_score_zero():
         SCORING,
         now=NOW,
     )
-    assert breakdown.language == 0.0
-    assert breakdown.topic == 0.0
+    assert breakdown["language"] == 0.0
+    assert breakdown["topic"] == 0.0

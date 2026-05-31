@@ -1,0 +1,81 @@
+# Scoring knobs. Each component lands in [0, 1] and the final score is a
+# weighted sum, so weights should add up to roughly 1.0.
+
+weights:
+  activity: 0.35    # how recent the last push is
+  popularity: 0.20  # log-scaled stars
+  language: 0.20    # bonus for languages you care about
+  topic: 0.25       # bonus for topics you care about (you have strong niches)
+
+# Activity fades linearly: today = 1.0, this many days old = 0.0
+activity_horizon_days: 30
+
+# Popularity = log10(stars + 1) / popularity_log_cap, clipped to [0, 1].
+# A cap of 5 means ~100k stars saturates. Niche research repos rarely break 10k,
+# so a lower cap (4) lets a 10k-star repo reach the full popularity score.
+popularity_log_cap: 4
+
+preferred_languages:
+  Python: 1.0       # DL, GA, image-gen, quant
+  C++: 0.95         # game engines, quant infra
+  Rust: 0.9         # bevy, modern game/engine work
+  CUDA: 0.9         # DL kernels
+  C#: 0.85          # Unity, gamedev
+  GDScript: 0.8     # Godot
+  Julia: 0.8        # quant / scientific
+  C: 0.75           # engine internals, sensors
+  TypeScript: 0.6   # tooling around the above
+  Jupyter Notebook: 0.7
+
+preferred_topics:
+  # Deep learning
+  deep-learning: 1.0
+  machine-learning: 0.85
+  neural-network: 0.85
+  pytorch: 0.8
+  transformers: 0.85
+
+  # Machine olfaction / sensors (rare as topics; queries cover keywords too)
+  machine-olfaction: 1.0
+  electronic-nose: 1.0
+  gas-sensor: 0.9
+  chemoinformatics: 0.8
+
+  # Genetic / evolutionary
+  genetic-algorithm: 1.0
+  evolutionary-algorithms: 1.0
+  evolutionary-computation: 0.95
+  neuroevolution: 0.9
+  optimization: 0.7
+
+  # Image generation
+  diffusion-models: 1.0
+  stable-diffusion: 0.95
+  image-generation: 1.0
+  generative-art: 0.9
+  generative-ai: 0.85
+  gan: 0.8
+
+  # Game / engine dev
+  game-engine: 1.0
+  game-development: 0.95
+  gamedev: 0.95
+  godot: 0.9
+  unity: 0.85
+  unreal-engine: 0.85
+  graphics: 0.8
+  rendering: 0.8
+
+  # Quant
+  quantitative-finance: 1.0
+  algorithmic-trading: 1.0
+  trading: 0.85
+  backtesting: 0.9
+  finance: 0.7
+
+# How many repos to keep in the daily shortlist.
+shortlist_size: 5
+
+# Drop any repo that already appeared in a shortlist within the last N days.
+# Keeps the daily list fresh. Set to 0 to disable.
+dedup_window_days: 7

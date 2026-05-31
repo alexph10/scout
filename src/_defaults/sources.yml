@@ -1,0 +1,97 @@
+# Where the collector looks each run.
+# queries: GitHub Search calls. Placeholders like {seven_days_ago} are filled in at runtime.
+# curated: repos to always include, in owner/name form.
+# filters: cleans the candidate pool before scoring.
+
+defaults:
+  per_page: 30
+  max_per_query: 30
+  filters:
+    exclude_archived: true
+    exclude_forks: true
+    min_description_length: 20
+
+queries:
+  # Deep learning / ML research
+  - name: deep-learning-trending
+    q: "topic:deep-learning stars:>50 pushed:>{seven_days_ago}"
+    sort: stars
+    order: desc
+
+  - name: new-ml-projects
+    q: "topic:machine-learning stars:>30 created:>{thirty_days_ago}"
+    sort: stars
+    order: desc
+
+  # Genetic / evolutionary algorithms
+  - name: active-genetic-algorithms
+    q: "topic:genetic-algorithm pushed:>{thirty_days_ago}"
+    sort: stars
+    order: desc
+
+  - name: evolutionary-computation
+    q: "topic:evolutionary-algorithms stars:>20 pushed:>{ninety_days_ago}"
+    sort: updated
+    order: desc
+
+  # Machine olfaction (niche - search description/readme, not just topics)
+  - name: machine-olfaction-keyword
+    q: '"machine olfaction" OR "electronic nose" OR "e-nose" in:name,description,readme pushed:>{ninety_days_ago}'
+    sort: updated
+    order: desc
+
+  - name: gas-sensor-ml
+    q: '"gas sensor" "deep learning" in:name,description,readme pushed:>{ninety_days_ago}'
+    sort: updated
+    order: desc
+
+  # Image generation / diffusion
+  - name: diffusion-models-active
+    q: "topic:diffusion-models stars:>100 pushed:>{seven_days_ago}"
+    sort: stars
+    order: desc
+
+  - name: image-generation-new
+    q: "topic:image-generation stars:>50 created:>{thirty_days_ago}"
+    sort: stars
+    order: desc
+
+  - name: generative-art
+    q: "topic:generative-art stars:>30 pushed:>{thirty_days_ago}"
+    sort: updated
+    order: desc
+
+  # Game engines & gamedev
+  - name: game-engines-active
+    q: "topic:game-engine stars:>100 pushed:>{seven_days_ago}"
+    sort: stars
+    order: desc
+
+  - name: gamedev-new
+    q: "topic:gamedev stars:>30 created:>{thirty_days_ago}"
+    sort: stars
+    order: desc
+
+  - name: rust-game-libraries
+    q: "language:Rust topic:game-development stars:>50 pushed:>{thirty_days_ago}"
+    sort: updated
+    order: desc
+
+  # Quant / algorithmic trading
+  - name: quant-finance-active
+    q: "topic:quantitative-finance stars:>50 pushed:>{thirty_days_ago}"
+    sort: stars
+    order: desc
+
+  - name: algorithmic-trading-new
+    q: "topic:algorithmic-trading stars:>30 created:>{ninety_days_ago}"
+    sort: stars
+    order: desc
+
+  - name: backtesting-libraries
+    q: '"backtesting" in:name,description language:Python stars:>50 pushed:>{ninety_days_ago}'
+    sort: updated
+    order: desc
+
+# Always-include anchors. These bypass the filters above.
+curated: []

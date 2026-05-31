@@ -1,4 +1,4 @@
-"""Stage 3: write the daily shortlist as JSON + Markdown."""
+"""Write the shortlist as JSON and Markdown."""
 
 from __future__ import annotations
 
@@ -41,7 +41,7 @@ def write_markdown(shortlist: list[dict[str, Any]], date: datetime) -> Path:
     path = REPORTS_DIR / f"{date.date().isoformat()}.md"
 
     lines: list[str] = []
-    lines.append(f"# Daily GitHub Shortlist — {date.date().isoformat()}")
+    lines.append(f"# Daily GitHub Shortlist: {date.date().isoformat()}")
     lines.append("")
     lines.append(f"_Generated {date.isoformat()}_")
     lines.append("")
@@ -52,33 +52,33 @@ def write_markdown(shortlist: list[dict[str, Any]], date: datetime) -> Path:
 
     for idx, repo in enumerate(shortlist, start=1):
         score = repo.get("_score", {})
-        topics = ", ".join((repo.get("topics") or [])[:5]) or "—"
+        topics = ", ".join((repo.get("topics") or [])[:5]) or "n/a"
         lines.append(
-            f"## {idx}. [{repo['full_name']}]({repo['html_url']}) — "
-            f"score {score.get('total', 0):.3f}"
+            f"## {idx}. [{repo['full_name']}]({repo['html_url']}) "
+            f"(score {score.get('total', 0):.3f})"
         )
         if repo.get("description"):
             lines.append("")
             lines.append(f"> {repo['description']}")
         lines.append("")
         lines.append(
-            f"- ⭐ {repo.get('stargazers_count', 0):,} · "
-            f"language: `{repo.get('language') or 'n/a'}` · "
+            f"- {repo.get('stargazers_count', 0):,} stars, "
+            f"language: `{repo.get('language') or 'n/a'}`, "
             f"pushed: {repo.get('pushed_at', 'n/a')}"
         )
         lines.append(f"- topics: {topics}")
         lines.append(
-            f"- source: `{repo.get('_source', 'n/a')}` · "
-            f"activity {score.get('activity', 0):.2f} · "
-            f"popularity {score.get('popularity', 0):.2f} · "
-            f"language {score.get('language', 0):.2f} · "
+            f"- source: `{repo.get('_source', 'n/a')}`, "
+            f"activity {score.get('activity', 0):.2f}, "
+            f"popularity {score.get('popularity', 0):.2f}, "
+            f"language {score.get('language', 0):.2f}, "
             f"topic {score.get('topic', 0):.2f}"
         )
         lines.append("")
 
     lines.append("---")
     lines.append("")
-    lines.append("Review locally and run `python -m src.approve <this-file>` to star approved repos.")
+    lines.append(f"Run `scout approve {date.date().isoformat()}` to star approved repos.")
     lines.append("")
     path.write_text("\n".join(lines), encoding="utf-8")
     return path

@@ -1,7 +1,4 @@
-"""Stage 4: interactively approve repos and star them via the REST API.
-
-Starring is always opt-in and per-repo. The pipeline never stars automatically.
-"""
+"""Interactive starring of shortlisted repos."""
 
 from __future__ import annotations
 
@@ -15,7 +12,6 @@ from .github_client import GitHubClient
 
 
 def _load_shortlist(arg: str) -> list[dict]:
-    """Accept either a JSON data file, a markdown report, or a date string."""
     path = Path(arg)
     if path.suffix == ".json" and path.exists():
         return json.loads(path.read_text(encoding="utf-8"))["repos"]
@@ -30,16 +26,16 @@ def _load_shortlist(arg: str) -> list[dict]:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Interactively star approved repos from a daily shortlist."
+        description="Walk through today's shortlist and star the ones you like."
     )
     parser.add_argument(
         "shortlist",
-        help="Path to a reports/*.md or data/*.json file, or a YYYY-MM-DD date.",
+        help="A reports/*.md, a data/*.json, or just a YYYY-MM-DD.",
     )
     parser.add_argument(
         "--yes-to-all",
         action="store_true",
-        help="Star every repo without prompting. Use with care.",
+        help="Star everything without asking.",
     )
     args = parser.parse_args(argv)
 
@@ -58,7 +54,7 @@ def main(argv: list[str] | None = None) -> int:
     for repo in repos:
         full_name = repo["full_name"]
         if client.is_starred(full_name):
-            print(f"= already starred: {full_name}")
+            print(f"already starred: {full_name}")
             continue
 
         if args.yes_to_all:
@@ -70,10 +66,10 @@ def main(argv: list[str] | None = None) -> int:
 
         if answer == "y":
             client.star(full_name)
-            print(f"+ starred: {full_name}")
+            print(f"starred: {full_name}")
             starred += 1
         else:
-            print(f"- skipped: {full_name}")
+            print(f"skipped: {full_name}")
             skipped += 1
 
     print(f"\nDone. starred={starred} skipped={skipped} total={len(repos)}")
