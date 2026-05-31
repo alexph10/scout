@@ -75,6 +75,33 @@ class GitHubClient:
         resp = self._get(f"{API_ROOT}/repos/{full_name}")
         return resp.json()
 
+    def list_starred(self, per_page: int = 100) -> set[str]:
+        """Return the full_names of every repo the authenticated user has starred.
+
+        One paginated walk of /user/starred. Returns an empty set if there is no
+        token configured.
+        """
+        if not self.token:
+            return set()
+        starred: set[str] = set()
+        page = 1
+        while True:
+            resp = self._get(
+                f"{API_ROOT}/user/starred",
+                params={"per_page": per_page, "page": page},
+            )
+            items = resp.json()
+            if not items:
+                break
+            for repo in items:
+                name = repo.get("full_name")
+                if name:
+                    starred.add(name)
+            if len(items) < per_page:
+                break
+            page += 1
+        return starred
+
     def is_starred(self, full_name: str) -> bool:
         resp = self.session.get(
             f"{API_ROOT}/user/starred/{full_name}", timeout=REQUEST_TIMEOUT

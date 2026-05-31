@@ -73,7 +73,8 @@ def cmd_run(argv: list[str]) -> int:
     sources = load_sources()
     scoring = load_scoring()
 
-    candidates = collect(sources, GitHubClient(), now=now)
+    client = GitHubClient()
+    candidates = collect(sources, client, now=now)
 
     dedup_window = int(scoring.get("dedup_window_days", 0))
     if dedup_window > 0:
@@ -88,6 +89,18 @@ def cmd_run(argv: list[str]) -> int:
                     f"{dedup_window} day(s).",
                     file=sys.stderr,
                 )
+
+    # Exclude repos the user has already starred. Once you've starred a repo,
+    # it should never appear in another shortlist - that drives daily rotation.
+    if client.token:
+        print("Fetching your starred repos...", file=sys.stderr)
+        starred = client.list_starred()
+        if starred:
+            before = len(candidates)
+            candidates = [r for r in candidates if r.get("full_name") not in starred]
+            dropped = before - len(candidates)
+            if dropped:
+                print(f"Skipped {dropped} already-starred repo(s).", file=sys.stderr)
 
     ranked = rank(candidates, scoring, now=now)
     shortlist = ranked[: int(scoring.get("shortlist_size", 5))]

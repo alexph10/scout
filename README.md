@@ -6,6 +6,8 @@ Every time you run it, scout asks GitHub "what are the top 5 repos I should be l
 
 Every run is also saved to `~/.scout/reports/YYYY-MM-DD.md` so you can flip back to old picks. Run `scout approve .` to walk the shortlist and star the ones you like with one keystroke each.
 
+The shortlist rotates daily: anything you've already starred is excluded forever, and anything that appeared in the last 7 days is skipped. So you keep seeing fresh repos.
+
 It's a daily 30-second habit. No web UI, no account, no LLM, no nonsense.
 
 #### Install
@@ -27,6 +29,86 @@ scout --help       everything else
 ```
 
 The first run creates `~/.scout/` and drops two editable config files in it: `sources.yml` (what to search for) and `scoring.yml` (how to weight results). Edit them however you like.
+
+#### Tune it for your specialization
+
+Scout ships with defaults tuned for ML, generative AI, game engines, and quant. To make it match your world, edit two files in `~/.scout/`.
+
+`sources.yml` is the list of GitHub searches scout runs. Add, remove, or rewrite entries to point at the topics you actually care about. Anything GitHub's search syntax accepts works here.
+
+`scoring.yml` is where you boost specific languages and topics. Higher numbers (0 to 1) rank a repo higher in the daily top 5.
+
+A few starter recipes you can paste over the defaults:
+
+**Web / frontend dev**
+```yaml
+preferred_languages:
+  TypeScript: 1.0
+  JavaScript: 0.9
+  Rust: 0.7    # WASM, build tooling
+  Go: 0.6      # backends
+preferred_topics:
+  react: 1.0
+  nextjs: 1.0
+  svelte: 0.95
+  vue: 0.9
+  tailwindcss: 0.85
+  web-components: 0.8
+  vite: 0.8
+```
+
+**Systems / backend / infra**
+```yaml
+preferred_languages:
+  Rust: 1.0
+  Go: 1.0
+  C: 0.9
+  C++: 0.9
+  Zig: 0.85
+preferred_topics:
+  kubernetes: 1.0
+  observability: 0.95
+  distributed-systems: 1.0
+  databases: 0.95
+  networking: 0.9
+  cli: 0.85
+  containers: 0.85
+```
+
+**Mobile**
+```yaml
+preferred_languages:
+  Swift: 1.0
+  Kotlin: 1.0
+  Dart: 0.95
+  Objective-C: 0.7
+preferred_topics:
+  ios: 1.0
+  android: 1.0
+  swiftui: 0.95
+  jetpack-compose: 0.95
+  flutter: 0.95
+  react-native: 0.85
+```
+
+**Security / offensive**
+```yaml
+preferred_languages:
+  Python: 1.0
+  Go: 0.9
+  Rust: 0.85
+  C: 0.85
+preferred_topics:
+  security: 1.0
+  pentesting: 1.0
+  reverse-engineering: 0.95
+  exploit: 0.9
+  malware-analysis: 0.9
+  fuzzing: 0.85
+  cryptography: 0.85
+```
+
+You can mix several specializations in one file; the highest matching language and the highest matching topic each contribute to a repo's score. Pair these with matching `queries` in `sources.yml` (e.g. `topic:kubernetes pushed:>{seven_days_ago}`) so the candidate pool actually contains the right repos.
 
 #### Auth (for `scout approve`)
 

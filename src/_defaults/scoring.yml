@@ -5,7 +5,7 @@ weights:
   activity: 0.35    # how recent the last push is
   popularity: 0.20  # log-scaled stars
   language: 0.20    # bonus for languages you care about
-  topic: 0.25       # bonus for topics you care about (you have strong niches)
+  topic: 0.25       # bonus for topics you care about
 
 # Activity fades linearly: today = 1.0, this many days old = 0.0
 activity_horizon_days: 30
