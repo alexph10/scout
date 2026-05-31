@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import os
+import shutil
+import subprocess
 import time
 from typing import Any
 
@@ -13,9 +15,38 @@ USER_AGENT = "daily-github-shortlist/0.1"
 REQUEST_TIMEOUT = 15  # seconds
 
 
+def _gh_cli_token() -> str | None:
+    """Fall back to the GitHub CLI (`gh auth token`) if it's installed and logged in."""
+    if not shutil.which("gh"):
+        return None
+    try:
+        result = subprocess.run(
+            ["gh", "auth", "token"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+            check=False,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return None
+    if result.returncode != 0:
+        return None
+    token = result.stdout.strip()
+    return token or None
+
+
+def detect_token() -> str | None:
+    """Try GITHUB_TOKEN, then GH_TOKEN, then `gh auth token`."""
+    for var in ("GITHUB_TOKEN", "GH_TOKEN"):
+        val = os.environ.get(var)
+        if val:
+            return val
+    return _gh_cli_token()
+
+
 class GitHubClient:
     def __init__(self, token: str | None = None, session: requests.Session | None = None):
-        self.token = token or os.environ.get("GITHUB_TOKEN")
+        self.token = token if token is not None else detect_token()
         self.session = session or requests.Session()
         self.session.headers.update(
             {

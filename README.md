@@ -22,18 +22,20 @@ pipx install git+https://github.com/alexph10/github-curate
 scout              build today's shortlist and print it
 scout show         reprint the latest report
 scout list         list every report you've ever generated
-scout approve      walk today's picks and star the good ones
+scout approve .    walk today's picks and star the good ones
 scout --help       everything else
 ```
 
 The first run creates `~/.scout/` and drops two editable config files in it: `sources.yml` (what to search for) and `scoring.yml` (how to weight results). Edit them however you like.
 
-To star repos via `scout approve`, put a GitHub token in `~/.scout/.env`:
+#### Auth (for `scout approve`)
 
-```
-GITHUB_TOKEN=ghp_yourtoken
-```
+Scout finds a GitHub token in this order:
 
-The token needs the `public_repo` scope. Search-only runs work fine without a token, you just get a lower rate limit.
+1. `$GITHUB_TOKEN` or `$GH_TOKEN` env var.
+2. `~/.scout/.env` (a `GITHUB_TOKEN=...` line).
+3. Whatever `gh auth token` returns, if you have the GitHub CLI installed and logged in.
+
+The easiest path is `gh auth login` once and you're done. The token needs the `public_repo` scope to star. Search-only runs (`scout`, `scout show`) work fine with no token, just at a lower rate limit.
 
 Point scout at a different working dir with `SCOUT_HOME=/some/path scout`.

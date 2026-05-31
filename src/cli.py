@@ -27,6 +27,7 @@ Commands:
   run        Build today's shortlist and print it. (default)
              Options: --date YYYY-MM-DD
   approve    Walk a shortlist and star the repos you like.
+             Use `.` (or no argument) to pick the latest report.
   show       Reprint a saved report (defaults to latest).
   list       List saved reports with their repo counts.
   version    Print the installed version.

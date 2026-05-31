@@ -78,7 +78,7 @@ def write_markdown(shortlist: list[dict[str, Any]], date: datetime) -> Path:
 
     lines.append("---")
     lines.append("")
-    lines.append(f"Run `scout approve {date.date().isoformat()}` to star approved repos.")
+    lines.append("Run `scout approve .` to star approved repos.")
     lines.append("")
     path.write_text("\n".join(lines), encoding="utf-8")
     return path

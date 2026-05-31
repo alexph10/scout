@@ -11,26 +11,51 @@ from .config import DATA_DIR
 from .github_client import GitHubClient
 
 
-def _load_shortlist(arg: str) -> list[dict]:
+def _latest_data() -> Path | None:
+    if not DATA_DIR.exists():
+        return None
+    candidates = sorted(DATA_DIR.glob("*.json"))
+    return candidates[-1] if candidates else None
+
+
+def _resolve_shortlist(arg: str | None) -> Path:
+    """Resolve a shortlist argument to a data/*.json path.
+
+    Accepts: a path, a YYYY-MM-DD date, '.', 'latest', or no argument
+    (the last two resolve to the most recent saved report).
+    """
+    if arg in (None, ".", "latest"):
+        latest = _latest_data()
+        if latest is None:
+            raise FileNotFoundError(
+                f"No saved shortlists found in {DATA_DIR}. Run `scout` first."
+            )
+        return latest
+
     path = Path(arg)
     if path.suffix == ".json" and path.exists():
-        return json.loads(path.read_text(encoding="utf-8"))["repos"]
+        return path
     if path.suffix == ".md" and path.exists():
         json_path = DATA_DIR / (path.stem + ".json")
-        return json.loads(json_path.read_text(encoding="utf-8"))["repos"]
+        if json_path.exists():
+            return json_path
     json_path = DATA_DIR / f"{arg}.json"
     if json_path.exists():
-        return json.loads(json_path.read_text(encoding="utf-8"))["repos"]
+        return json_path
     raise FileNotFoundError(f"Could not resolve shortlist for: {arg}")
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Walk through today's shortlist and star the ones you like."
+        prog="scout approve",
+        description="Walk a shortlist and star the repos you like. "
+                    "Use '.' or omit the argument to act on the latest report.",
     )
     parser.add_argument(
         "shortlist",
-        help="A reports/*.md, a data/*.json, or just a YYYY-MM-DD.",
+        nargs="?",
+        default=".",
+        help="A reports/*.md path, a data/*.json path, a YYYY-MM-DD, or '.' for latest.",
     )
     parser.add_argument(
         "--yes-to-all",
@@ -39,14 +64,24 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
 
-    repos = _load_shortlist(args.shortlist)
+    try:
+        data_path = _resolve_shortlist(args.shortlist)
+    except FileNotFoundError as exc:
+        print(f"scout: {exc}", file=sys.stderr)
+        return 1
+
+    repos = json.loads(data_path.read_text(encoding="utf-8"))["repos"]
     if not repos:
         print("Shortlist is empty.")
         return 0
 
     client = GitHubClient()
     if not client.token:
-        print("GITHUB_TOKEN is required to star repos.", file=sys.stderr)
+        print(
+            "scout: no GitHub token found. Set GITHUB_TOKEN, put it in "
+            "~/.scout/.env, or run `gh auth login`.",
+            file=sys.stderr,
+        )
         return 2
 
     starred = 0
