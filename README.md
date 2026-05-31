@@ -1,4 +1,4 @@
-#### scout
+#### scout (0.1.0)
 
 
 <img width="2560" height="1440" alt="video demo " src="https://github.com/user-attachments/assets/f180f50d-3446-4890-ab23-68a21fecca8a" />
