@@ -21,3 +21,13 @@ Thumbs.db
 # Local-only state
 .cache/
 *.log
+
+# Personal / generated data
+data/
+reports/
+*.local
+*.local.*
+secrets/
+*.pem
+*.key
+credentials.json
