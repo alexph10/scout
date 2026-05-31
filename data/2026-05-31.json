@@ -1,0 +1,156 @@
+{
+  "generated_at": "2026-05-31T13:32:23.447411+00:00",
+  "count": 5,
+  "repos": [
+    {
+      "full_name": "NousResearch/hermes-agent",
+      "html_url": "https://github.com/NousResearch/hermes-agent",
+      "description": "The agent that grows with you",
+      "language": "Python",
+      "topics": [
+        "ai",
+        "ai-agent",
+        "ai-agents",
+        "anthropic",
+        "chatgpt",
+        "claude",
+        "claude-code",
+        "clawdbot",
+        "codex",
+        "hermes",
+        "hermes-agent",
+        "llm",
+        "moltbot",
+        "nous-research",
+        "openai",
+        "openclaw"
+      ],
+      "stargazers_count": 174312,
+      "pushed_at": "2026-05-31T13:14:36Z",
+      "source": "trending-ai-this-week",
+      "score": {
+        "activity": 0.9995881761531635,
+        "popularity": 1.0,
+        "language": 1.0,
+        "topic": 1.0,
+        "total": 0.9999
+      }
+    },
+    {
+      "full_name": "Comfy-Org/ComfyUI",
+      "html_url": "https://github.com/Comfy-Org/ComfyUI",
+      "description": "The most powerful and modular diffusion model GUI, api and backend with a graph/nodes interface.",
+      "language": "Python",
+      "topics": [
+        "ai",
+        "comfy",
+        "comfyui",
+        "python",
+        "pytorch",
+        "stable-diffusion"
+      ],
+      "stargazers_count": 115103,
+      "pushed_at": "2026-05-31T12:20:14Z",
+      "source": "trending-ai-this-week",
+      "score": {
+        "activity": 0.9983296884988426,
+        "popularity": 1.0,
+        "language": 1.0,
+        "topic": 1.0,
+        "total": 0.9994
+      }
+    },
+    {
+      "full_name": "langchain-ai/langchain",
+      "html_url": "https://github.com/langchain-ai/langchain",
+      "description": "The agent engineering platform.",
+      "language": "Python",
+      "topics": [
+        "agents",
+        "ai",
+        "ai-agents",
+        "anthropic",
+        "chatgpt",
+        "deepagents",
+        "enterprise",
+        "framework",
+        "gemini",
+        "generative-ai",
+        "langchain",
+        "langgraph",
+        "llm",
+        "multiagent",
+        "open-source",
+        "openai",
+        "pydantic",
+        "python",
+        "rag",
+        "typescript"
+      ],
+      "stargazers_count": 138103,
+      "pushed_at": "2026-05-31T09:03:37Z",
+      "source": "trending-ai-this-week",
+      "score": {
+        "activity": 0.9937783767704476,
+        "popularity": 1.0,
+        "language": 1.0,
+        "topic": 1.0,
+        "total": 0.9978
+      }
+    },
+    {
+      "full_name": "Significant-Gravitas/AutoGPT",
+      "html_url": "https://github.com/Significant-Gravitas/AutoGPT",
+      "description": "AutoGPT is the vision of accessible AI for everyone, to use and to build on. Our mission is to provide the tools, so that you can focus on what matters.",
+      "language": "Python",
+      "topics": [
+        "agentic-ai",
+        "agents",
+        "ai",
+        "artificial-intelligence",
+        "autonomous-agents",
+        "claude",
+        "gpt",
+        "llama-api",
+        "llm",
+        "openai",
+        "python"
+      ],
+      "stargazers_count": 184667,
+      "pushed_at": "2026-05-30T23:45:16Z",
+      "source": "trending-ai-this-week",
+      "score": {
+        "activity": 0.980853608251929,
+        "popularity": 1.0,
+        "language": 1.0,
+        "topic": 1.0,
+        "total": 0.9933
+      }
+    },
+    {
+      "full_name": "harry0703/MoneyPrinterTurbo",
+      "html_url": "https://github.com/harry0703/MoneyPrinterTurbo",
+      "description": "\u5229\u7528AI\u5927\u6a21\u578b\uff0c\u4e00\u952e\u751f\u6210\u9ad8\u6e05\u77ed\u89c6\u9891 Generate short videos with one click using AI LLM.",
+      "language": "Python",
+      "topics": [
+        "ai",
+        "automation",
+        "chatgpt",
+        "moviepy",
+        "python",
+        "shortvideo",
+        "tiktok"
+      ],
+      "stargazers_count": 73160,
+      "pushed_at": "2026-05-31T13:22:47Z",
+      "source": "trending-ai-this-week",
+      "score": {
+        "activity": 0.9997776051655093,
+        "popularity": 0.9728559265984751,
+        "language": 1.0,
+        "topic": 1.0,
+        "total": 0.9931
+      }
+    }
+  ]
+}

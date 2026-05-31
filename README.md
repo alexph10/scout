@@ -4,7 +4,7 @@
 
 Every time you run it, scout asks GitHub "what are the top 5 repos I should be looking at right now?" It runs a list of searches you configured (deep learning, generative AI, game engines, quant trading, whatever you care about), scores each repo by how recently it was pushed, how many stars it has, and how well its language and topics match your tastes, then prints the top 5 to your terminal.
 
-Every run is also saved to `~/.scout/reports/YYYY-MM-DD.md` so you can flip back to old picks. Run `scout approve` to walk the shortlist and star the ones you like with one keystroke each.
+Every run is also saved to `~/.scout/reports/YYYY-MM-DD.md` so you can flip back to old picks. Run `scout approve .` to walk the shortlist and star the ones you like with one keystroke each.
 
 It's a daily 30-second habit. No web UI, no account, no LLM, no nonsense.
 
