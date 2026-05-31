@@ -1,5 +1,7 @@
 #### scout
 
+<img width="2560" height="1440" alt="video demo " src="https://github.com/user-attachments/assets/f180f50d-3446-4890-ab23-68a21fecca8a" />
+
 #### What it does
 
 Every time you run it, scout asks GitHub "what are the top 5 repos I should be looking at right now?" It runs a list of searches you configured (deep learning, generative AI, game engines, quant trading, whatever you care about), scores each repo by how recently it was pushed, how many stars it has, and how well its language and topics match your tastes, then prints the top 5 to your terminal.
