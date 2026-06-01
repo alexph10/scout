@@ -77,7 +77,6 @@ queries:
     sort: updated
     order: desc
 
-  # Quant / algorithmic trading
   - name: quant-finance-active
     q: "topic:quantitative-finance stars:>50 pushed:>{thirty_days_ago}"
     sort: stars
