@@ -109,7 +109,6 @@ preferred_topics:
   cryptography: 0.85
 ```
 
-You can mix several specializations in one file; the highest matching language and the highest matching topic each contribute to a repo's score. Pair these with matching `queries` in `sources.yml` (e.g. `topic:kubernetes pushed:>{seven_days_ago}`) so the candidate pool actually contains the right repos.
 
 #### Auth (for `scout approve`)
 
