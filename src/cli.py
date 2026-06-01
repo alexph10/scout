@@ -1,5 +1,3 @@
-"""scout - daily GitHub repo shortlist."""
-
 from __future__ import annotations
 
 import argparse
