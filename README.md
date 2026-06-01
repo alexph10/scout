@@ -30,13 +30,9 @@ The first run creates `~/.scout/` and drops two editable config files in it: `so
 
 #### Tune it for your specialization
 
-Scout ships with defaults tuned for ML, generative AI, game engines, and quant. To make it match your world, edit two files in `~/.scout/`.
-
 `sources.yml` is the list of GitHub searches scout runs. Add, remove, or rewrite entries to point at the topics you actually care about. Anything GitHub's search syntax accepts works here.
 
 `scoring.yml` is where you boost specific languages and topics. Higher numbers (0 to 1) rank a repo higher in the daily top 5.
-
-A few starter recipes you can paste over the defaults:
 
 **Web / frontend dev**
 ```yaml
