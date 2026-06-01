@@ -17,9 +17,7 @@ The shortlist rotates daily: anything you've already starred is excluded forever
 pipx install git+https://github.com/alexph10/github-curate
 ```
 
-`scout` is now on your PATH.
-
-#### Use
+#### Usage
 
 ```
 scout              build today's shortlist and print it
