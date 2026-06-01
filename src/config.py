@@ -1,6 +1,6 @@
 """Paths and YAML loaders.
 
-Scout reads config and writes data under SCOUT_HOME (default ~/.scout).
+scout reads config and writes data under SCOUT_HOME (default ~/.scout).
 On first use the bundled defaults are copied there so the user can edit them.
 """
 
