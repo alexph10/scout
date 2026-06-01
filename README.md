@@ -76,22 +76,6 @@ preferred_topics:
   containers: 0.85
 ```
 
-**Mobile**
-```yaml
-preferred_languages:
-  Swift: 1.0
-  Kotlin: 1.0
-  Dart: 0.95
-  Objective-C: 0.7
-preferred_topics:
-  ios: 1.0
-  android: 1.0
-  swiftui: 0.95
-  jetpack-compose: 0.95
-  flutter: 0.95
-  react-native: 0.85
-```
-
 **Security / offensive**
 ```yaml
 preferred_languages:
