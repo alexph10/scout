@@ -1,5 +1,4 @@
-#### scout (0.1.0)
-
+#### scout 
 
 <img width="2560" height="1440" alt="video demo " src="https://github.com/user-attachments/assets/ca4635ec-4e94-440b-bf56-be73bafe2546" />
 
