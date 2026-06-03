@@ -2,9 +2,6 @@
 
 <img width="2560" height="1440" alt="video demo " src="https://github.com/user-attachments/assets/ca4635ec-4e94-440b-bf56-be73bafe2546" />
 
-
-#### What it does
-
 `scout` finds 5 repositories sifted through a system of filters. It runs a list of searches you configured and scores each repo by how recently it was pushed, how many stars it has, and how well its language and topics match, then prints to your terminal.
 
 The shortlist rotates daily: anything you've already starred is excluded forever, and anything that appeared in the last 7 days is skipped. So you keep seeing fresh repos.
