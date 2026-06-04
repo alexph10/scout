@@ -13,10 +13,7 @@ def recently_seen(
     now: datetime,
 ) -> set[str]:
     """Return the set of repo full_names that appeared in any shortlist
-    written within the last `window_days` days, NOT including today.
-
-    Today is excluded so re-running the pipeline on the same day does not
-    dedup against its own previous output.
+    written within the last `window_days` days.
 
     Returns an empty set if window_days <= 0 or the data dir is empty.
     """
