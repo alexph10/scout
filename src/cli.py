@@ -18,9 +18,6 @@ from .score import rank
 
 HELP_TEXT = f"""scout {__version__} - daily GitHub repo shortlist
 
-Usage:
-  scout [COMMAND] [OPTIONS]
-
 Commands:
   run        Build today's shortlist and print it. (default)
              Options: --date YYYY-MM-DD
@@ -31,7 +28,6 @@ Commands:
   version    Print the installed version.
   help       Show this help.
 
-Config and output live under ~/.scout (override with SCOUT_HOME).
 """
 
 
