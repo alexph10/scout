@@ -84,8 +84,7 @@ def cmd_run(argv: list[str]) -> int:
                     file=sys.stderr,
                 )
 
-    # Exclude repos the user has already starred. Once you've starred a repo,
-    # it should never appear in another shortlist - that drives daily rotation.
+    # Exclude repos the user has already starred.
     if client.token:
         print("Fetching your starred repos...", file=sys.stderr)
         starred = client.list_starred()
