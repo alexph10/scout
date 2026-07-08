@@ -6,6 +6,8 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+import requests
+
 from . import __version__
 from .approve import main as approve_main
 from .collect import collect
@@ -87,7 +89,17 @@ def cmd_run(argv: list[str]) -> int:
     # Exclude repos the user has already starred.
     if client.token:
         print("Fetching your starred repos...", file=sys.stderr)
-        starred = client.list_starred()
+        try:
+            starred = client.list_starred()
+        except requests.RequestException as exc:
+            # Some tokens (e.g. GitHub Actions' repo-scoped GITHUB_TOKEN) can't
+            # read /user/starred. Skip star-based filtering instead of crashing.
+            print(
+                f"Could not fetch starred repos ({exc}); "
+                "continuing without star-based filtering.",
+                file=sys.stderr,
+            )
+            starred = set()
         if starred:
             before = len(candidates)
             candidates = [r for r in candidates if r.get("full_name") not in starred]
